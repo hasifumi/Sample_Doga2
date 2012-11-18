@@ -2,7 +2,7 @@ enchant()
 class Sample_Doga2 extends Game
   constructor:->
     super()
-    @preload "model/fighter.l3p.js"
+    @preload "model/fighter.l3p.js", "model/enemy1.l3p.js"
     @onload = ->
       @scene = new Scene3D()
       cam = @scene.getCamera()
@@ -11,13 +11,20 @@ class Sample_Doga2 extends Game
       cam.z = -20
 
       #@bullets = new Bullets()
-      #@enemies = new Enemies()
+      @enemies = new Enemies()
           
       @player = new Player()
       @player.z = -5
       @scene.addChild(@player)
 
-      #@onenterframe = =>
+      @onenterframe = =>
+        if (Math.random() < 0.2)
+          e = @enemies.get()
+          if e
+            e.x = 0
+            e.y = 0
+            e.z = 8
+            @scene.addChild(e)
       #  if @frame % 100 is 0
       #    e = @enemies.get()
       #    if e
